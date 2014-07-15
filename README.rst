@@ -64,3 +64,9 @@ You can run tests with:
     $ python setup.py test
 
 By default the tests generate a test.log in the current directory.
+
+Development
+===========
+
+We consider origin/master to be the main branch where the source code of HEAD always
+reflects a production-ready state.
