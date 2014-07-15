@@ -98,9 +98,12 @@ class Settings(object):
         return dict(items)
 
     @classmethod
-    def from_yaml(cls, path='./default.yaml'):
+    def from_yaml(cls, path=None):
         if 'USE_SETTINGS' in os.environ:
             path = os.environ['USE_SETTINGS']
+
+        if not path:
+            raise ValueError('No settings path given. Define one thought USE_SETTINGS at the env.')
 
         path = os.path.realpath(os.path.abspath(path))
 
