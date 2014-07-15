@@ -1,0 +1,98 @@
+# Product
+product: &prod
+  class: search.GoogleSearch
+
+instance1_settings: &instance1_settings
+  username: webmaster@example.com
+  password: 1234
+
+instance2_settings: &instance2_settings
+  username: webmaster@example.com
+  password: 1234
+
+# Available product-instances for testing
+instances:
+  - instance: &instance1
+      id: Instance1
+      product: *prod
+      url: https://www.google.de/
+      settings: *instance1_settings
+
+  - instance: &instance2
+      id: Instance2
+      product: *prod
+      url: http://instance2.local
+      settings: *instance2_settings
+
+# Instance to test
+to_test: *instance1
+
+browsers:
+  # Local browser definition
+  - browser: &chrome_local
+      # ANDROID, CHROME, FIREFOX, HTMLUNIT, HTMLUNITWITHJS,
+      # INTERNETEXPLORER, IPAD, IPHONE, OPERA, SAFARI, PHANTOMJS
+      name: CHROME
+      remote: false
+      # Required if browser is set to CHROME or PHANTOMJS.
+      # This should point to the driver path.
+      executable_path: /usr/local/bin/chromedriver
+#      proxy: http://proxy.server.de:3128
+
+  - browser: &firefox_local
+      name: FIREFOX
+      remote: false
+#      proxy: http://proxy.server.de:3128
+
+  - browser: &phantomjs_local
+      name: PHANTOMJS
+      remote: false
+      executable_path: /usr/local/bin/phantomjs
+#      proxy: http://proxy.server.de:3128
+
+  - browser: &safari_local
+      name: SAFARI
+      remote: false
+      executable_path: /path/to/selenium-server-standalone-2.39.0.jar
+#      proxy: http://proxy.server.de:3128
+
+  # Remote browser definition
+  - browser: &firefox_remote
+      name: FIREFOX
+      remote: true
+      capabilities:
+        - version: 22
+        # ANY, ANDROID, LINUX, MAC, UNIX, VISTA, WIN7, WIN8, WINDOWS, XP
+        - platform: WIN8
+        # Name you'd like to label your sessions. (useful for labeling on sauce)
+        - name: Firefox22Windows8
+
+  - browser: &safari_remote
+      name: SAFARI
+      remote: true
+
+  - browser: &opera_remote
+      name: OPERA
+      remote: true
+
+selenium:
+  browser: *chrome_local
+
+  # Set this to point at the Remote Webdriver connection string.
+  #remote_url: http://url.to.seleniumgrid:4444/wd/hub
+  remote_url: http://127.0.0.1:4444/wd/hub
+
+  # Path of Selenium server Jar file.  This is needed for Safari Driver.
+  #server_path: /path/to/selenium-server-standalone-2.39.0.jar
+
+  # Set to true, to reuse the same browser.  Set to false, to use a fresh browser
+  # instance each time.
+  reusebrowser: false
+
+  dont_close: true
+  # NOT IMPLEMENTED YET
+  # Take screenshot of browser on error.
+  #take_screenshot: false
+
+  # Take reference screenshot upon visiting a page.
+  #take_reference_screenshot: false
