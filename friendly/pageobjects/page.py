@@ -97,16 +97,20 @@ class PageObject(object):
         base_url = '%(scheme)s://%(netloc)s' % dict((s, getattr(url, s)) for s in url._fields)
         return base_url
 
+    def get_screenshot_filename(self):
+        return datetime.date.today().strftime('screenshot_%Y%m%d_%H%M%S.png')
+
     def take_screenshot(self):
-        filename = datetime.date.today().strftime('screenshot_%Y%m%d_%H%M%S.png')
+        filename = self.get_screenshot_filename()
         if isinstance(self.driver, webdriver.Remote):
             # If this is a remote webdriver.  We need to transmit the image data
             # back across system boundries as a base 64 encoded string so it can
             # be decoded back on the local system and written to disk.
-            base64_data = self.driver.get_screenshot_as_base64()
-            screenshot_data = base64.decodestring(base64_data)
             screenshot_file = open(filename, 'wb')
-            screenshot_file.write(screenshot_data)
+#            base64_data = self.driver.get_screenshot_as_base64()
+#            screenshot_data = base64.decodestring(base64_data)
+#            screenshot_file.write(screenshot_data)
+            screenshot_file.write(self.driver.get_screenshot_as_png())
             screenshot_file.close()
         else:
             self.driver.save_screenshot(filename)
