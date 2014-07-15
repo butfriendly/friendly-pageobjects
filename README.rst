@@ -6,6 +6,22 @@ ButFriendly's PageObjects are an implementation of the PageObject-pattern, which
 as a facade to simplify the handling of the mostly complex structure and functionality
 of HTML pages within Selenium-tests.
 
+BFPO in detail
+==============
+
+The center of <> builds a product with its instances which are the subjects of our
+test-efforts.
+
+For each of our products we create an YAML-configuration, which contains all information
+about our available instances, local and remote browsers as well as selenium itself.
+
+A minimal setup must at least define a C{Product} and a C{PageObject}
+
+    USE_SETTINGS=config.xml python tralala.py
+
+A product would be an web-application for example, which can be run as multiple instances
+with different configurations.
+
 Quickstart
 ==========
 
