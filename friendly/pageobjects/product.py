@@ -69,7 +69,13 @@ class ProductManager(object):
 
         self._instances = {}
 
-    def get_instance(self, instance_id=None):
+    def get_instance(self, *args, **kwargs):
+        """
+        @deprecated
+        """
+        return self.get_product(*args, **kwargs)
+
+    def get_product(self, instance_id=None):
         # Use default instance id if we didn't get one
         if not instance_id:
             instance_id = self._settings['to_test.id']
